@@ -1,13 +1,22 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using POYAN.Web.AI;
 using POYAN.Web.Data;
 using POYAN.Web.Models;
 using POYAN.Web.Security;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' was not found.");
+
+builder.Services.Configure<AiOptions>(builder.Configuration.GetSection(AiOptions.SectionName));
+builder.Services.AddHttpClient<IAiService, OpenAiCompatibleClient>((services, client) =>
+{
+    var aiOptions = services.GetRequiredService<IOptions<AiOptions>>().Value;
+    client.Timeout = TimeSpan.FromSeconds(Math.Clamp(aiOptions.TimeoutSeconds, 5, 300));
+});
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
