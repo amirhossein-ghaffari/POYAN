@@ -41,6 +41,7 @@ builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AuthorizeFolder("/Dashboard");
     options.Conventions.AuthorizeFolder("/Students");
+    options.Conventions.AuthorizeAreaPage("Identity", "/Account/Register");
 });
 
 var app = builder.Build();
