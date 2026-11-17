@@ -1,0 +1,21 @@
+@page
+@model POYAN.Web.Pages.IndexModel
+@{
+    ViewData["Title"] = "خانه";
+}
+<section class="hero">
+    <div class="hero-mark">P</div>
+    <p class="eyebrow">STUDENT GROWTH INTELLIGENCE</p>
+    <h1>رشد هر دانش‌آموز،<br /><span>یک مسیر قابل مشاهده</span></h1>
+    <p class="hero-copy">پویان، سامانه یکپارچه پایش و ارزیابی رشد آموزشی و ورزشی دانش‌آموزان؛ برای تصمیم‌هایی دقیق‌تر و آینده‌ای روشن‌تر.</p>
+    <div class="hero-actions">
+        <a class="button button-primary" asp-area="Identity" asp-page="/Account/Login">ورود به سامانه</a>
+        <a class="button button-ghost" href="#features">آشنایی با امکانات</a>
+    </div>
+</section>
+<section class="feature-grid" id="features">
+    <article class="feature-card"><span>01</span><h2>پرونده رشد</h2><p>نمایی یکپارچه از مسیر آموزشی، مهارتی و جسمانی هر دانش‌آموز.</p></article>
+    <article class="feature-card"><span>02</span><h2>ارزیابی مستند</h2><p>ثبت ارزیابی‌ها، مشاهدات و شواهد برای تصمیم‌گیری دقیق‌تر.</p></article>
+    <article class="feature-card"><span>03</span><h2>تحلیل هوشمند</h2><p>آماده برای اتصال کنترل‌شده به سرویس‌های هوش مصنوعی.</p></article>
+</section>
+<footer>POYAN <span>·</span> سامانه پایش و ارزیابی رشد دانش‌آموزان</footer>
