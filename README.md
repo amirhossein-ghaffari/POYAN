@@ -25,7 +25,12 @@ POYAN/
 پیش‌نیازها: .NET 10 SDK و SQL Server یا SQL Server LocalDB.
 
 1. مقدار `ConnectionStrings:DefaultConnection` را در User Secrets یا متغیر محیطی `ConnectionStrings__DefaultConnection` تنظیم کنید.
-2. پس از اضافه‌شدن Migration اولیه، دیتابیس را با دستور EF Core به‌روزرسانی کنید.
+2. Migration اولیه را بسازید و دیتابیس را به‌روزرسانی کنید:
+
+```bash
+dotnet ef migrations add InitialCreate --project POYAN.Web --startup-project POYAN.Web
+dotnet ef database update --project POYAN.Web --startup-project POYAN.Web
+```
 3. اجرا:
 
 ```bash
