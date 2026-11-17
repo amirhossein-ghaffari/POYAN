@@ -18,6 +18,6 @@ jobs:
         with:
           dotnet-version: 10.0.x
       - name: Restore
-        run: dotnet restore POYAN.Web/POYAN.Web.csproj
+        run: dotnet restore POYAN.sln
       - name: Build
-        run: dotnet build POYAN.Web/POYAN.Web.csproj --configuration Release --no-restore
+        run: dotnet build POYAN.sln --configuration Release --no-restore
