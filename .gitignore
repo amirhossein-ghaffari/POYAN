@@ -1,0 +1,18 @@
+# Build output
+**/bin/
+**/obj/
+.vs/
+*.user
+*.suo
+
+# Local configuration and secrets
+appsettings.Development.json
+appsettings.*.local.json
+secrets.json
+.env
+.env.*
+
+# IDE and OS
+.idea/
+.DS_Store
+Thumbs.db
