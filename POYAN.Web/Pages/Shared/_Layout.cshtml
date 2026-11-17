@@ -7,6 +7,23 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
+    <nav class="top-nav">
+        <a class="brand" asp-page="/Index"><span class="brand-mark">P</span> پویان</a>
+        <div class="nav-links">
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <a asp-page="/Dashboard/Index">داشبورد</a>
+                <a asp-page="/Students/Index">دانش‌آموزان</a>
+                <form method="post" asp-area="Identity" asp-page="/Account/Logout" class="logout-form">
+                    <button type="submit" class="nav-logout">خروج</button>
+                </form>
+            }
+            else
+            {
+                <a asp-area="Identity" asp-page="/Account/Login">ورود</a>
+            }
+        </div>
+    </nav>
     <main>@RenderBody()</main>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
