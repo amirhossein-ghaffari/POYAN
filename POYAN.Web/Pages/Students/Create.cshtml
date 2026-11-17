@@ -1,0 +1,17 @@
+@page
+@model POYAN.Web.Pages.Students.CreateModel
+@{
+    ViewData["Title"] = "ثبت دانش‌آموز";
+}
+<section class="dashboard-shell narrow-shell">
+    <header class="dashboard-header"><div><p class="eyebrow">NEW STUDENT</p><h1>ثبت <span>دانش‌آموز</span></h1><p class="hero-copy">شناسه مدرسه به‌صورت امن از حساب کاربری شما تعیین می‌شود.</p></div></header>
+    <form method="post" class="panel form-grid">
+        <div asp-validation-summary="ModelOnly" class="validation"></div>
+        <label asp-for="Input.StudentCode"></label><input asp-for="Input.StudentCode" autocomplete="off" /><span asp-validation-for="Input.StudentCode" class="validation"></span>
+        <label asp-for="Input.FirstName"></label><input asp-for="Input.FirstName" autocomplete="given-name" /><span asp-validation-for="Input.FirstName" class="validation"></span>
+        <label asp-for="Input.LastName"></label><input asp-for="Input.LastName" autocomplete="family-name" /><span asp-validation-for="Input.LastName" class="validation"></span>
+        <label asp-for="Input.Grade"></label><input asp-for="Input.Grade" /><span asp-validation-for="Input.Grade" class="validation"></span>
+        <label asp-for="Input.BirthDate"></label><input asp-for="Input.BirthDate" type="date" /><span asp-validation-for="Input.BirthDate" class="validation"></span>
+        <div class="form-actions"><button class="button button-primary" type="submit">ثبت پرونده</button><a class="button button-ghost" asp-page="Index">انصراف</a></div>
+    </form>
+</section>
