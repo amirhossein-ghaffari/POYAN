@@ -1,0 +1,27 @@
+@page
+@model POYAN.Web.Pages.Dashboard.IndexModel
+@{
+    ViewData["Title"] = "داشبورد";
+}
+<section class="dashboard-shell">
+    <header class="dashboard-header">
+        <div>
+            <p class="eyebrow">POYAN · OVERVIEW</p>
+            <h1>داشبورد <span>پویان</span></h1>
+            <p class="hero-copy">نمای کلی از وضعیت پرونده‌ها و مسیر رشد دانش‌آموزان.</p>
+        </div>
+        <a class="button button-primary" asp-page="/Students/Create">افزودن دانش‌آموز</a>
+    </header>
+    <div class="stats-grid">
+        <article class="stat-card"><span>دانش‌آموزان</span><strong>@Model.StudentsCount</strong><small>پرونده‌های قابل دسترس</small></article>
+        <article class="stat-card"><span>رکوردهای رشد</span><strong>@Model.GrowthRecordsCount</strong><small>ارزیابی و مشاهده ثبت‌شده</small></article>
+        <article class="stat-card"><span>مدارس فعال</span><strong>@Model.ActiveSchoolsCount</strong><small>در محدوده دسترسی شما</small></article>
+    </div>
+    <section class="panel">
+        <div><p class="eyebrow">QUICK ACCESS</p><h2>شروع کار</h2></div>
+        <div class="quick-links">
+            <a class="button button-ghost" asp-page="/Students/Index">مشاهده پرونده دانش‌آموزان</a>
+            <a class="button button-ghost" asp-page="/Students/Create">ثبت دانش‌آموز جدید</a>
+        </div>
+    </section>
+</section>
