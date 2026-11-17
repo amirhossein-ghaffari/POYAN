@@ -1,0 +1,36 @@
+@page
+@model POYAN.Web.Pages.Students.IndexModel
+@{
+    ViewData["Title"] = "دانش‌آموزان";
+}
+<section class="dashboard-shell">
+    <header class="dashboard-header">
+        <div><p class="eyebrow">STUDENT RECORDS</p><h1>پرونده <span>دانش‌آموزان</span></h1><p class="hero-copy">فهرست دانش‌آموزان مدرسه بر اساس سطح دسترسی حساب شما.</p></div>
+        <a class="button button-primary" asp-page="Create">دانش‌آموز جدید</a>
+    </header>
+    <section class="panel">
+        @if (Model.Students.Count == 0)
+        {
+            <p class="empty-state">هنوز پرونده‌ای ثبت نشده است.</p>
+        }
+        else
+        {
+            <div class="table-wrap">
+                <table>
+                    <thead><tr><th>کد دانش‌آموزی</th><th>نام و نام خانوادگی</th><th>پایه</th><th>وضعیت</th></tr></thead>
+                    <tbody>
+                    @foreach (var student in Model.Students)
+                    {
+                        <tr>
+                            <td>@student.StudentCode</td>
+                            <td><a class="table-link" asp-page="Details" asp-route-id="@student.Id">@student.FirstName @student.LastName</a></td>
+                            <td>@(student.Grade ?? "—")</td>
+                            <td><span class="status-pill">@(student.IsActive ? "فعال" : "غیرفعال")</span></td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </section>
+</section>
