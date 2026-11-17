@@ -1,0 +1,61 @@
+@page "{id:guid}"
+@model POYAN.Web.Pages.Students.DetailsModel
+@{
+    ViewData["Title"] = "پرونده دانش‌آموز";
+    var categoryNames = new Dictionary<string, string>
+    {
+        ["Educational"] = "آموزشی",
+        ["Sporting"] = "ورزشی",
+        ["Behavioral"] = "رفتاری",
+        ["Physical"] = "جسمانی"
+    };
+}
+@if (Model.Student is not null)
+{
+<section class="dashboard-shell">
+    <header class="dashboard-header">
+        <div><p class="eyebrow">STUDENT GROWTH PROFILE</p><h1>@Model.Student.FirstName <span>@Model.Student.LastName</span></h1><p class="hero-copy">کد: @Model.Student.StudentCode · پایه: @(Model.Student.Grade ?? "—")</p></div>
+        <a class="button button-ghost" asp-page="Index">بازگشت به فهرست</a>
+    </header>
+    <div class="profile-grid">
+        <section class="panel">
+            <p class="eyebrow">GROWTH TIMELINE</p><h2>سوابق رشد و ارزیابی</h2>
+            @if (Model.Student.GrowthRecords.Count == 0)
+            {
+                <p class="empty-state">هنوز ارزیابی یا مشاهده‌ای ثبت نشده است.</p>
+            }
+            else
+            {
+                <div class="timeline">
+                @foreach (var record in Model.Student.GrowthRecords)
+                {
+                    <article class="timeline-item">
+                        <div class="timeline-meta"><span class="status-pill">@(categoryNames.GetValueOrDefault(record.Category, record.Category))</span><time>@record.RecordedAtUtc.ToLocalTime().ToString("yyyy/MM/dd HH:mm")</time></div>
+                        <h3>@record.Title</h3>
+                        @if (!string.IsNullOrWhiteSpace(record.Description)) { <p>@record.Description</p> }
+                        @if (record.Score.HasValue) { <strong class="score">@record.Score.Value.ToString("0.##") از ۱۰۰</strong> }
+                    </article>
+                }
+                </div>
+            }
+        </section>
+        <section class="panel">
+            <p class="eyebrow">NEW EVIDENCE</p><h2>ثبت ارزیابی یا مشاهده</h2>
+            <form method="post" asp-page-handler="AddRecord" asp-route-id="@Model.Student.Id" class="form-grid">
+                <div asp-validation-summary="ModelOnly" class="validation"></div>
+                <label asp-for="Input.Category"></label>
+                <select asp-for="Input.Category">
+                    <option value="Educational">آموزشی</option>
+                    <option value="Sporting">ورزشی</option>
+                    <option value="Behavioral">رفتاری</option>
+                    <option value="Physical">جسمانی</option>
+                </select>
+                <label asp-for="Input.Title"></label><input asp-for="Input.Title" /><span asp-validation-for="Input.Title" class="validation"></span>
+                <label asp-for="Input.Description"></label><textarea asp-for="Input.Description" rows="4"></textarea><span asp-validation-for="Input.Description" class="validation"></span>
+                <label asp-for="Input.Score"></label><input asp-for="Input.Score" type="number" min="0" max="100" step="0.1" /><span asp-validation-for="Input.Score" class="validation"></span>
+                <button class="button button-primary" type="submit">ثبت در پرونده</button>
+            </form>
+        </section>
+    </div>
+</section>
+}
