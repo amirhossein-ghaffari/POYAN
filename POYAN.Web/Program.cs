@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using POYAN.Web.Data;
 using POYAN.Web.Models;
+using POYAN.Web.Security;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,8 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+builder.Services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, SchoolClaimsPrincipalFactory>();
 
 builder.Services
     .AddDefaultIdentity<ApplicationUser>(options =>
@@ -25,10 +28,7 @@ builder.Services
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddRazorPages(options =>
-{
-    options.Conventions.AuthorizeFolder("/Dashboard");
-});
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
@@ -45,18 +45,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
-
-using (var scope = app.Services.CreateScope())
-{
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-    string[] roles = ["SuperAdmin", "SchoolAdmin", "Teacher", "Coach"];
-
-    foreach (var role in roles)
-    {
-        if (!await roleManager.RoleExistsAsync(role))
-            await roleManager.CreateAsync(new IdentityRole(role));
-    }
-}
 
 app.Run();
 
