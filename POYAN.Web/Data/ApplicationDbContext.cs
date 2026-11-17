@@ -30,6 +30,7 @@ public sealed class ApplicationDbContext(
         {
             entity.Property(x => x.Name).HasMaxLength(200).IsRequired();
             entity.Property(x => x.City).HasMaxLength(100);
+            entity.HasQueryFilter(x => IsSuperAdmin || (CurrentSchoolId != null && x.Id == CurrentSchoolId));
         });
 
         builder.Entity<Student>(entity =>
